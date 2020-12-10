@@ -140,13 +140,7 @@ cin >> n >> m;
 size_t w_max, w;
 ```
 
-のように付帯的に説明する命名を心掛けてください.
-
-### constexpr 定数は CONSTANT_CASE で宣言する
-
-```c++
-constexpr long long MOD = 1'000'000'007;
-```
+のように意味を書くことで命名の衝突を避けることが出来るかもしれません.
 
 ### クラス、構造体、union は PascalCase で命名する
 
@@ -235,11 +229,19 @@ namespace some_space {};
 
 ### グローバル変数は避ける
 
-基本的にグローバル変数は用いないこととします.
+基本的にグローバル変数は用いないこととします. クラス等にするほうが見通しがよいかもしれません.
+
+#### 例外
 
 `constexpr` なものなどはグローバルで構いません.
 
-クラス等にするほうが見通しがよいかもしれません.
+```c++
+constexpr int mod = 7; // ok
+int main() {
+  /* ... */
+  return 0;
+}
+```
 
 ### 変数は必要な箇所で宣言する
 
@@ -322,16 +324,42 @@ private:
 
 ## misc
 
-### if や while のブロックの波括弧は毎回書く
+### if や while のブロックの波括弧は毎回書く (推奨)
 
-### 桁区切りできるならする
+短く書けるならば短かく書くのがよいのですが, スタイルを合わせるためにこれらは毎回ブロックとして書いてください.
+
+```c++
+if (a == b) break; //
+if (a == b) {      // good
+  break;
+}
+```
+
+### 桁区切りできるならする (推奨)
 
 ```c++
 1'000'000'009 // ok
 1000000009    // 分かりにくい
 ```
 
+### 条件式が複雑になる場合は, 一時的に変数を用意する
+
+```c++
+if (a == b && (b != c % 4 || d + c / 4 != e) && e * f <= 4) // should avoid
+
+bool some_flag = a == b && (b != c % 4 || d + c / 4 != e) && e * f <= 4; // mmm
+if (some_flag)
+
+bool some_flag_what = a == b;
+bool some_flag_oops = b != c % 4 || d + c / 4 != e;
+bool some_flat_whoa = e * f <= 4;
+if (some_flat_what && some_flag_oops && some_flag_whoa) // good
+```
+
 ### ネストが深くならないように気をつける (早期 return などを使う)
+
+```c++
+```
 
 ### 真偽値には int ではなく bool を用いる (まあ正直どっちでもいい気もするけど)
 
