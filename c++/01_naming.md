@@ -1,6 +1,8 @@
-# 命名
+# 01. 命名
 
-## 省略しすぎない命名をする
+C++ における命名の方針です.
+
+## [強制] 省略しすぎない命名をする
 
 基本的に「模範解答」として読みやすい命名をします.
 
@@ -11,7 +13,7 @@
 - その一部を切り抜いたときに自然言語として通用する
 - 問題文を読まずともある程度扱っているトピックが分かる
 
-### bad patterns
+### [回避] 悪い例
 
 - `check`
   - 「素数かどうか」であれば `is_prime`, 「席が空いているか」であれば `seats_available` などの命名をしてください.
@@ -24,7 +26,7 @@
 - `dp`
   - これには強い慣習があると思いますが, `max_values` など書けるならば書くとよいです. 解説にいくらでも DP であることは書けます.
 
-### 問題文に記載されている「幅 `w`, 高さ `h`」 などの識別子
+### [許容] 問題文に記載されている「幅 `w`, 高さ `h`」 などの識別子は小文字にして用いてよい
 
 理想的には `width`, `height` 等の命名をするべきです.
 
@@ -38,11 +40,11 @@ int height, width; // best
 int H, W;          // never
 ```
 
-### ループ変数 (典型的には `int i`, `some_ptr p` など)
+### [許容] ループ変数 (典型的には `int i`, `some_ptr p` など) の省略した名称は用いてよい
 
 これも可能であれば説明的な命名が良いのですが, **「一般的に広く用いられており, 読み手との合意が得られている」** ものなので, `i` や `p` などの簡易的な命名は許容します.
 
-## 変数および関数は lower_snake_case で命名する
+## [強制] 変数および関数は `snake_case` で命名する
 
 ```c++
 vector<string> shopping_list; // good
@@ -68,7 +70,7 @@ size_t w_max, w;
 
 のように意味を書くことで命名の衝突を避けることが出来るかもしれません.
 
-## クラス、構造体、union は PascalCase で命名する
+## [強制] クラス、構造体など は `PascalCase` で命名する
 
 正直言うと STL/boost に合わせて snake_case の方が収まりが良いのですが, 世の中の慣習としてクラス等は PascalCase で命名する場合がかなり多いです (snake_case を命名の基本としている ruby や rust でもそうです).
 
@@ -80,7 +82,7 @@ class Human {
 };
 ```
 
-### 特例
+### [許容] `snake_case` での命名も許容する
 
 データ構造の側面が強い構造体・クラスに関しては, `snake_case` での命名を許すこととします. `segment_tree` や `union_find` などが該当します.
 
@@ -91,12 +93,12 @@ class segment_tree<Monoid> {
 };
 ```
 
-## メンバ
+## [強制] クラス・構造体のメンバは `snake_case` で命名し, 特に `private`, `protected` なメンバは `_snake_case` で命名する
 
 - `private`, `protected`
   - アンダースコアから始まる `_snake_case` とします.
 - その他
-  - `snake_case` (通常の識別子と同様) とします.
+  - `snake_case` (通常の変数名などと同様) とします.
 
 ```c++
 class some_obj {
@@ -106,7 +108,7 @@ public:
 };
 ```
 
-## テンプレート型引数
+## [強制] テンプレート型引数は `T`, `S` などの大文字一文字を基本とし, 必要ならば `PascalCase` で命名する
 
 基本的に抽象的な存在であるので, `T`, `S` などを利用します.
 
@@ -117,7 +119,7 @@ template<typename SubGroup>
 // ...
 ```
 
-## 非型テンプレートパラメータは `snake_case`
+## [強制] 非型テンプレートパラメータは `snake_case` で命名する
 
 ```c++
 template<int seed_value>
@@ -126,7 +128,7 @@ int add(int x) {
 }
 ```
 
-## enum 型名は lower_snake_case / 列挙子は CONSTANT_CASE にする
+## [強制] enum 型名は lower_snake_case / 列挙子は CONSTANT_CASE で命名する
 
 ```c++
 enum week_days {
@@ -136,13 +138,11 @@ enum week_days {
   WEDNESDAY,
   THURSDAY,
   FRIDAY,
-  SATURDAY
+  SATURDAY,
 };
 ```
 
-## namespace
-
-`snake_case` としてください.
+## [強制] namespace は `snake_case` で命名する
 
 ```c++
 namespace some_space {};
