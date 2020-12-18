@@ -28,15 +28,15 @@ typedef int (*f)(double, string);  // bad
 using f = int (*)(double, string); // good
 ```
 
-## [推奨] range-based for、auto 宣言、構造化束縛などは積極的に用いる
+## [推奨] range-based for、構造化束縛などは積極的に用いる
 
-paiza の clang++ は c++17 なのでそこまで利用できるものならば活用しましょう。
+paiza の clang++ は c++20 なのでそこまで利用できるものならば活用しましょう。
 
 ```c++
 for (const auto& [x, y] : points) { /*...*/ }
 ```
 
-## [回避] auto ... -> ret_type で関数を定義するのは避ける
+## [回避] auto ... -> ret_type で `main` 関数を定義するのは避ける
 
 基本的には意味がないので利用しません.
 
@@ -46,6 +46,8 @@ auto main() -> int { return 0; } // bad
 ```
 
 ## [回避] 条件式を複雑にしない
+
+複雑なものは分割して変数に避けるなどします.
 
 ```c++
 if (a == b && (b != c % 4 || d + c / 4 != e) && e * f <= 4) // should avoid
@@ -62,6 +64,25 @@ if (some_flat_what && some_flag_oops && some_flag_whoa) // good
 ## [回避] ネストを深くしない (早期 return などを使う)
 
 ```c++
+// bad
+if (a) {
+  if (b) {
+    if (c) {
+      cout << "reached" << endl;
+    } else {
+      cout << "so close" << endl;
+    }
+  }
+}
+
+// better
+if (!a) return;
+if (!b) return;
+if (c) {
+  cout << "reached" << endl;
+} else {
+  cout << "so close" << endl;
+}
 ```
 
 ## [推奨] 真偽値には int ではなく bool を用いる
