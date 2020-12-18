@@ -33,3 +33,35 @@ if (a == b) {      // good
 1'000'000'009 // ok
 1000000009    // 分かりにくい
 ```
+
+## [推奨] enum の最後の要素には `,` を付ける
+
+次のように書くと, フォーマッタにより一行に整形されることがあります (幅によります).
+
+```c++
+// こう書くと
+enum direction {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT
+};
+
+// ↓ のようになる
+enum direction { UP, DOWN, LEFT, RIGHT };
+```
+
+これを避けるには, 最後の要素の後にも `,` を打てばよいです.
+
+```c++
+// そのまま改行が維持される
+enum direction {
+   UP,
+   DOWN,
+   LEFT,
+   RIGHT,
+};
+
+// 逆に ↓ のように書くと ↑ のように整形される
+enum direction { UP, DOWN, LEFT, RIGHT, };
+```
