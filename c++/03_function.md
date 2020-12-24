@@ -1,15 +1,20 @@
 # 03. 関数
 
-<!--
-### 関数の引数は 5 個を最大とする
+## [推奨] 関数の引数は少なくする
+
+データをまとめるということにも関連してきます. たとえば, 二次元座標を扱う場合には `std::pair<int, int>` などにしてしまうほうが読みやすいでしょう.
 
 ```c++
-using point = std::pair<int, int>;
-int solve(point start, point goal, point via);
-```
+// not good
+path traverse(int start_x, int start_y, int goal_x, int goal_y, int via_x, int via_y) {
+  /* ... */
+}
 
-多すぎると追うのが大変です。ひとまとまりのものは構造体（こちらを推奨：アクセス時に識別子を分かりやすいものにできるため）や pair などにするとよいかもしれません。
--->
+// better
+path traverse(point start, point goal, point via) {
+  /* ... */
+}
+```
 
 <!--
 ## [回避] 関数の引数を書き換える (out 的なパターン) は避ける
