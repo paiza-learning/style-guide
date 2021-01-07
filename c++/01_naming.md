@@ -118,7 +118,7 @@ public:
 ただし, 特にどういうものかを明示したい場合 (モノイドや半群であるなど) に必要ならば `PascalCase` を利用してください.
 
 ```c++
-template<typename SubGroup>
+template<typename SemiGroup>
 // ...
 ```
 
