@@ -92,6 +92,24 @@ while (1)    // うーん
 while (true) // ok
 ```
 
+## [回避] true/falseが1/0として解釈されることを利用するのは避ける
+
+```c++
+int a[n];
+
+// bad
+for(int i = 0; i < n; i++){
+  cout << a[i] << " \n"[i==n-1];
+}
+
+// good
+for(int i = 0; i < n; i++){
+  cout << a[i];
+  if(i != n-1)  cout << " ";
+  else          cout << endl;
+}
+```
+
 ## [強制] 偶奇判定に &1 をつかわない
 
 剰余をとるという話であれば, すなおに `%` しましょう
